@@ -354,6 +354,7 @@ func bestPaths(nodeA string, nodeB string) (int, [][]string) {
 				continue
 			}
 			if n2 == nodeB || (nodeB == "" && nodes[n2].owned) {
+				deadend = false
 				npth := make([]string, len(pth)+2)
 				copy(npth, pth)
 				npth[len(pth)] = n
@@ -366,11 +367,10 @@ func bestPaths(nodeA string, nodeB string) (int, [][]string) {
 					bestCost = ncost
 					bestPaths = bestPaths[:0]
 					bestPaths = append(bestPaths, npth)
-					return true
 				} else if bestCost == ncost {
 					bestPaths = append(bestPaths, npth)
-					return true
 				}
+				continue
 			}
 			npth := make([]string, len(pth)+1)
 			copy(npth, pth)
